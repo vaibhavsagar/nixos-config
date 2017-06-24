@@ -23,7 +23,6 @@
   ];
 
   boot.loader.grub.device = "/dev/sda";
-  networking.networkmanager.enable = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -56,6 +55,8 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  networking.networkmanager.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
