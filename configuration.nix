@@ -36,6 +36,8 @@
   #   defaultLocale = "en_US.UTF-8";
   # };
 
+  nixpkgs.config.allowUnfree = true;
+
   # Set your time zone.
   time.timeZone = "Asia/Singapore";
 
