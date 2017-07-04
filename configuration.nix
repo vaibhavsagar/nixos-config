@@ -61,13 +61,14 @@
   # networking.firewall.enable = false;
 
   networking.networkmanager.enable = true;
+  networking.nameservers = [ "127.0.0.1" ];
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "gb";
+  services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e,ctrl:nocaps";
 
   # Enable the KDE Desktop Environment.
