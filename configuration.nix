@@ -53,6 +53,12 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  services = {
+    dnscrypt-proxy = {
+      enable = true;
+      resolverName = "d0wn-sg-ns1";
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
