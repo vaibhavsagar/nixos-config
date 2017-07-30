@@ -61,6 +61,19 @@
       enable = true;
       resolverName = "d0wn-sg-ns1";
     };
+
+    xserver = {
+      # Enable the X11 windowing system.
+      enable = true;
+      layout = "us";
+      xkbOptions = "ctrl:nocaps";
+
+      # Enable the KDE Desktop Environment.
+      displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
+
+      libinput.enable = true;
+    };
   };
 
   # Open ports in the firewall.
@@ -74,20 +87,6 @@
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-    layout = "us";
-    xkbOptions = "ctrl:nocaps";
-
-    # Enable the KDE Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-
-    libinput.enable = true;
-  };
-
 
   systemd.services.powertop = {
     description = ''
