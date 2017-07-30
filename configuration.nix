@@ -10,19 +10,22 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    initrd.luks.devices = [
+      {
+        name = "root";
+        device = "/dev/sda3";
+        preLVM = true;
+      }
+    ];
 
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/sda3";
-      preLVM = true;
-    }
-  ];
-
-  boot.loader.grub.device = "/dev/sda";
+    loader = {
+      efi.canTouchEfiVariables = true;
+      grub.device = "/dev/sda";
+      # Use the systemd-boot EFI boot loader.
+      systemd-boot.enable = true;
+    };
+  };
 
   hardware.pulseaudio.enable = true;
 
