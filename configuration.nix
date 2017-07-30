@@ -72,15 +72,19 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "ctrl:nocaps";
+  services.xserver = {
+    # Enable the X11 windowing system.
+    enable = true;
+    layout = "us";
+    xkbOptions = "ctrl:nocaps";
 
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.libinput.enable = true;
+    # Enable the KDE Desktop Environment.
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
+
+    libinput.enable = true;
+  };
+
 
   systemd.services.powertop = {
     description = ''
