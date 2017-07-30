@@ -75,7 +75,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e,ctrl:nocaps";
+  services.xserver.xkbOptions = "ctrl:nocaps";
 
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
