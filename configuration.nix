@@ -73,7 +73,13 @@
       displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
 
-      libinput.enable = true;
+      synaptics = {
+        enable = true;
+        accelFactor = "0.01";
+        minSpeed = "0.8";
+        twoFingerScroll = true;
+        palmDetect = true;
+      };
     };
   };
 
