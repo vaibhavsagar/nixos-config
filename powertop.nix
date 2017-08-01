@@ -5,7 +5,7 @@
     '';
     wantedBy = [ "multi-user.target" ];
 
-    path = with pkgs; [ powertop ];
+    path = [ pkgs.powertop ];
 
     environment = {
       TERM = "dumb";
