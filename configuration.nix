@@ -92,6 +92,11 @@
   networking.networkmanager.enable = true;
   networking.nameservers = [ "127.0.0.1" ];
 
+  nix = {
+    autoOptimiseStore = true;
+    buildCores = 2;
+  };
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
