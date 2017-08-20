@@ -60,7 +60,7 @@
   services = {
     dnscrypt-proxy = {
       enable = true;
-      resolverName = "d0wn-sg-ns1";
+      resolverName = "bikinhappy-sg";
     };
 
     xserver = {
