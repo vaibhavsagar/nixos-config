@@ -89,6 +89,7 @@
 
   nix = {
     autoOptimiseStore = true;
+    binaryCaches = [ "https://cache.nixos.org" ];
     buildCores = 2;
   };
 
