@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./dnscrypt-proxy.nix
       ./powertop.nix
     ];
 
@@ -58,11 +59,6 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
   services = {
-    dnscrypt-proxy = {
-      enable = true;
-      resolverName = "bikinhappy-sg";
-    };
-
     xserver = {
       # Enable the X11 windowing system.
       enable = true;
@@ -90,7 +86,6 @@
   # networking.firewall.enable = false;
 
   networking.networkmanager.enable = true;
-  networking.nameservers = [ "127.0.0.1" ];
 
   nix = {
     autoOptimiseStore = true;
