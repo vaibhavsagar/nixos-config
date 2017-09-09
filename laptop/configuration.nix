@@ -7,9 +7,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./dnscrypt-proxy.nix
-      ./powertop.nix
+      /etc/nixos/hardware-configuration.nix
+      ./../services/dnscrypt-proxy.nix
+      ./../services/powertop.nix
     ];
 
   boot = {
@@ -89,7 +89,8 @@
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches = [ "https://cache.nixos.org" ];
+    binaryCaches = [ "https://cache.nixos.org" "https://nixcache.reflex-frp.org" ];
+    binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" ];
     buildCores = 2;
   };
 
