@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
-    ./hardware-configuration.nix
-    ./networking.nix # generated at runtime by nixos-infect
+    /etc/nixos/hardware-configuration.nix
+    /etc/nixos/networking.nix # generated at runtime by nixos-infect
     
   ];
 
