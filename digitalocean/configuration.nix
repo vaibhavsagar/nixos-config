@@ -2,11 +2,13 @@
   imports = [
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
-    
+
+    ./../services/znc.nix
   ];
 
   boot.cleanTmpDir = true;
   networking.hostName = "nixos-1gb-sgp1-01";
+  networking.firewall.allowedTCPPorts = [ 5000 ];
   networking.firewall.allowPing = true;
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
