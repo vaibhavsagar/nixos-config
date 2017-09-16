@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  networking.firewall.allowedTCPPorts = [ 5000 ];
   services.znc = {
     enable = true;
     confOptions = {

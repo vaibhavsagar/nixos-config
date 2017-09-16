@@ -8,8 +8,9 @@
 
   boot.cleanTmpDir = true;
   networking.hostName = "nixos-1gb-sgp1-01";
-  networking.firewall.allowedTCPPorts = [ 5000 ];
   networking.firewall.allowPing = true;
+  nix = {
+  };
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
