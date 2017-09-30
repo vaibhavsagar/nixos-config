@@ -10,6 +10,7 @@
       /etc/nixos/hardware-configuration.nix
       ./../services/dnscrypt-proxy.nix
       ./../services/powertop.nix
+      ./../services/redshift.nix
     ];
 
   boot = {
