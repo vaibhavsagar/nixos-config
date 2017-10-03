@@ -9,7 +9,6 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./../services/dnscrypt-proxy.nix
-      ./../services/powertop.nix
       ./../services/redshift.nix
     ];
 
@@ -98,6 +97,7 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+  powerManagement.powertop.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.vaibhavsagar = {
