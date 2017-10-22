@@ -3,6 +3,7 @@
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
 
+    ./../services/hydra.nix
     ./../services/znc.nix
   ];
 
