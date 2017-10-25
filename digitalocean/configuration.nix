@@ -25,11 +25,16 @@ in {
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
+  swapDevices = [ { device = "/swapfile"; } ];
   users.extraUsers.vaibhavsagar = {
     home = "/home/vaibhavsagar";
     extraGroups = [ "wheel" ];
     isNormalUser = true;
     openssh.authorizedKeys.keys = keys;
     uid = 1000;
+  };
+  zramSwap = {
+    enable = true;
+    numDevices = 1;
   };
 }
