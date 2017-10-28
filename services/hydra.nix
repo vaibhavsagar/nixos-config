@@ -14,6 +14,7 @@
     useSubstitutes = true;
     extraConfig = ''
       store_uri = file:///var/lib/hydra/cache?secret-key=/etc/nix/128.199.234.106/nix-serve.sec
+      binary_cache_secret_key_file=/etc/nix/128.199.234.106/nix-serve.sec
     '';
   };
 }
