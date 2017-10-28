@@ -17,6 +17,8 @@ in {
   networking.hostName = "nixos-1gb-sgp1-01";
   networking.firewall.allowPing = true;
   nix = {
+    autoOptimiseStore = true;
+    buildCores = 1;
   };
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
