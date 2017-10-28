@@ -14,6 +14,7 @@ in {
   nix = {
     autoOptimiseStore = true;
     buildCores = 1;
+    package = with import <nixpkgs> {}; pkgs.nixUnstable;
   };
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
