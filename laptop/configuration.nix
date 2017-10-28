@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      ./../services/dnscrypt-proxy.nix
+      # ./../services/dnscrypt-proxy.nix
       ./../services/redshift.nix
     ];
 
