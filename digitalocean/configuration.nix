@@ -19,6 +19,7 @@ in {
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
   swapDevices = [ { device = "/swapfile"; } ];
+  system.autoUpgrade.enable = true;
   users.extraUsers.vaibhavsagar = {
     home = "/home/vaibhavsagar";
     extraGroups = [ "wheel" ];
