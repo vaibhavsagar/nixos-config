@@ -49,7 +49,15 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    cabal-install
+    cabal2nix
     git
+    gnugrep
+    gnumake
+    htop
+    jq
+    stack
+    tmux
     vimHugeX
     wget
   ];
