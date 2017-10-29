@@ -19,6 +19,7 @@ in {
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
+  services.zerotierone.enable = true;
   swapDevices = [ { device = "/swapfile"; } ];
   system.autoUpgrade.enable = true;
   users.extraUsers.vaibhavsagar = {
