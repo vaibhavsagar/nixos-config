@@ -5,6 +5,7 @@ in {
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
 
     ./../services/hydra.nix
+    ./../services/zerotierone.nix
     ./../services/znc.nix
   ];
 
@@ -19,7 +20,6 @@ in {
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
-  services.zerotierone.enable = true;
   swapDevices = [ { device = "/swapfile"; } ];
   system.autoUpgrade.enable = true;
   users.extraUsers.vaibhavsagar = {
