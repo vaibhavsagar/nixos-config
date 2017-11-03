@@ -15,7 +15,7 @@ in {
     git
     htop
     tmux
-    vim_configurable
+    vim
   ];
   networking.hostName = "nixos-1gb-sgp1-01";
   networking.firewall.allowPing = true;
