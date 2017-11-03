@@ -10,6 +10,8 @@
   services.hydra = {
     enable = true;
     hydraURL = "http://128.199.234.106";
+    minimumDiskFree = 1;
+    minimumDiskFreeEvaluator = 1;
     notificationSender = "hydra@vaibhavsagar.com";
     useSubstitutes = true;
     extraConfig = ''
