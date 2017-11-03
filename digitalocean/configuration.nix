@@ -1,4 +1,4 @@
-{ ... }: let
+{ pkgs, ... }: let
 in {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -10,12 +10,19 @@ in {
   ];
 
   boot.cleanTmpDir = true;
+  environment.systemPackages = with pkgs; [
+    curl
+    git
+    htop
+    tmux
+    vim_configurable
+  ];
   networking.hostName = "nixos-1gb-sgp1-01";
   networking.firewall.allowPing = true;
   nix = {
     autoOptimiseStore = true;
     buildCores = 1;
-    package = with import <nixpkgs> {}; pkgs.nixUnstable;
+    package = pkgs.nixUnstable;
   };
   security.sudo.wheelNeedsPassword = false;
   services.openssh.enable = true;
