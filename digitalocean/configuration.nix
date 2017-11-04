@@ -25,8 +25,10 @@ in {
     package = pkgs.nixUnstable;
   };
   security.sudo.wheelNeedsPassword = false;
-  services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+  };
   swapDevices = [ { device = "/swapfile"; } ];
   system.autoUpgrade.enable = true;
   users.extraUsers.vaibhavsagar = {
