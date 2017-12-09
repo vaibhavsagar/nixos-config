@@ -57,6 +57,7 @@
     gnumake
     htop
     jq
+    keybase
     stack
     tmux
     vimHugeX
