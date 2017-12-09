@@ -7,7 +7,7 @@
     confOptions = {
       networks = {
         freenode = {
-          channels = [ "haskell" "haskell-beginners" "haskell-offtopic" "idris" "nixos" "purescript" "qfpl" ];
+          channels = [ "haskell" "haskell.au" "haskell-beginners" "haskell-offtopic" "idris" "nixos" "purescript" "qfpl" ];
           modules = [ "log" "simple_away" ];
           server = "chat.freenode.net";
           port = 6697;
