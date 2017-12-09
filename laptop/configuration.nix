@@ -52,9 +52,12 @@
   environment.systemPackages = with pkgs; [
     cabal-install
     cabal2nix
+    firefox
     git
     gnugrep
     gnumake
+    google-chrome
+    hexchat
     htop
     jq
     keybase
