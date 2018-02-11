@@ -53,6 +53,7 @@
     cabal-install
     cabal2nix
     firefox
+    gimp
     git
     gnugrep
     gnumake
@@ -61,8 +62,14 @@
     htop
     jq
     keybase
+    nix-prefetch-git
+    okular
+    powertop
+    psensor
     stack
     tmux
+    tree
+    unzip
     vimHugeX
     wget
   ];
