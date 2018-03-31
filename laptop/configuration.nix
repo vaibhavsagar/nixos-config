@@ -134,9 +134,9 @@
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";
 
-  virtualisation.virtualbox = {
-    guest.enable = true;
-    host.enable = true;
-  };
+  # virtualisation.virtualbox = {
+  #   guest.enable = true;
+  #   host.enable = true;
+  # };
 
 }
