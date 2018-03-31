@@ -126,13 +126,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.vaibhavsagar = {
     home = "/home/vaibhavsagar";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     isNormalUser = true;
     uid = 1000;
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";
+
+  virtualisation.docker.enable = true;
 
   # virtualisation.virtualbox = {
   #   guest.enable = true;
