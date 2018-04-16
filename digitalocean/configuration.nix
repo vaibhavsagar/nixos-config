@@ -22,7 +22,6 @@ in {
   nix = {
     autoOptimiseStore = true;
     buildCores = 1;
-    package = pkgs.nixUnstable;
   };
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {
