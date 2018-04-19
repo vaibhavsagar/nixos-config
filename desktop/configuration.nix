@@ -38,7 +38,8 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     cabal2nix
-    firefox
+    dropbox
+    firefox-beta-bin
     gimp
     gitFull
     gnugrep
@@ -47,6 +48,7 @@
     htop
     jq
     keybase
+    keybase-gui
     nix-prefetch-git
     okular
     powertop
