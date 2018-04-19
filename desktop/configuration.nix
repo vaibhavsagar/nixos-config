@@ -51,6 +51,7 @@
     okular
     powertop
     psensor
+    thunderbird
     tmux
     tree
     unzip
