@@ -7,6 +7,9 @@
 {
   imports =
     [
+      ./../services/dnscrypt-proxy.nix
+      ./../services/redshift.nix
+      ./../services/zerotierone.nix
     ];
 
   # Use the GRUB 2 boot loader.
