@@ -8,6 +8,7 @@
   imports =
     [
       ./../services/dnscrypt-proxy.nix
+      ./../services/keybase.nix
       ./../services/redshift.nix
       ./../services/zerotierone.nix
     ];
