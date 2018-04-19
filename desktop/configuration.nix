@@ -137,10 +137,12 @@
   users.extraUsers.root.initialHashedPassword = "";
   users.extraUsers.vaibhavsagar = {
     home = "/home/vaibhavsagar";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     isNormalUser = true;
     uid = 1000;
   };
+
+  virtualisation.docker.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
