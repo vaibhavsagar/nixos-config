@@ -38,8 +38,11 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    ark
     cabal2nix
+    cifs-utils
     dropbox
+    filelight
     firefox-beta-bin
     gimp
     gitFull
@@ -54,6 +57,7 @@
     okular
     powertop
     psensor
+    spek
     thunderbird
     tmux
     tree
