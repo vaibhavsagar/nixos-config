@@ -118,6 +118,7 @@
 
   # Enable the X11 windowing system.
   services = {
+    openssh.enable = true;
     xserver = {
       # Enable the X11 windowing system.
       enable = true;
