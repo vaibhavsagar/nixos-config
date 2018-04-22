@@ -53,6 +53,7 @@
     jq
     keybase
     keybase-gui
+    krename
     nix-prefetch-git
     okular
     powertop
