@@ -58,7 +58,6 @@
     gnugrep
     gnumake
     google-chrome
-    hexchat
     htop
     jq
     keybase
