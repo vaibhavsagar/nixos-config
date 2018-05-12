@@ -112,7 +112,6 @@
     binaryCaches = [ "https://cache.nixos.org" "https://nixcache.reflex-frp.org" "http://128.199.234.106:3000" ];
     binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" "128.199.234.106:jzUyrIQHov5i6f94jQVriqPDLuPYlZPAsga3W3k+L8E=" ];
     buildCores = 2;
-    package = pkgs.nixStable2;
   };
 
   # Enable CUPS to print documents.
