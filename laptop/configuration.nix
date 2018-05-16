@@ -52,7 +52,7 @@
   environment.systemPackages = with pkgs; [
     cabal-install
     cabal2nix
-    firefox
+    firefox-beta-bin
     gimp
     git
     gnugrep
