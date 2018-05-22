@@ -63,6 +63,7 @@
     htop
     jq
     keybase
+    nixops
     nix-prefetch-git
     okular
     powertop
