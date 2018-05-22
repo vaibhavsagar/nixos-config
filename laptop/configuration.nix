@@ -55,8 +55,10 @@
     firefox-beta-bin
     gimp
     git
+    git-crypt
     gnugrep
     gnumake
+    gnupg
     google-chrome
     htop
     jq
