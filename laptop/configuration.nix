@@ -136,6 +136,13 @@
     uid = 1000;
   };
 
+  users.extraUsers.vaibhavsagar-work = {
+    home = "/home/vaibhavsagar-work";
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
+    isNormalUser = true;
+    uid = 1001;
+  };
+
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";
 
