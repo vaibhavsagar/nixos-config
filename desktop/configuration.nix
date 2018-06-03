@@ -7,6 +7,7 @@
 {
   imports =
     [
+      ./../packages/ghcid.nix
       ./../services/dnscrypt-proxy.nix
       ./../services/keybase.nix
       ./../services/redshift.nix
