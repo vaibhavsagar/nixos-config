@@ -117,6 +117,7 @@
     buildCores = 4;
     maxJobs = lib.mkForce 4;
     trustedBinaryCaches = [ "http://128.199.234.106:3000" ];
+    trustedUsers = [ "@wheel" ];
   };
 
   powerManagement.powertop.enable = true;
