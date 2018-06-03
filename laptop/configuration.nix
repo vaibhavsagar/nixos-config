@@ -116,8 +116,12 @@
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches = [ "https://cache.nixos.org" "https://nixcache.reflex-frp.org" "http://128.199.234.106:3000" ];
-    binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" "128.199.234.106:jzUyrIQHov5i6f94jQVriqPDLuPYlZPAsga3W3k+L8E=" ];
+    binaryCaches = [ "https://cache.nixos.org" "https://nixcache.reflex-frp.org" "http://128.199.234.106:3000" "https://vaibhavsagar.cachix.org" ];
+    binaryCachePublicKeys = [
+      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+      "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
+      "128.199.234.106:jzUyrIQHov5i6f94jQVriqPDLuPYlZPAsga3W3k+L8E="
+    ];
     buildCores = 2;
   };
 
