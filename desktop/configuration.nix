@@ -40,6 +40,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     ark
+    cabal-install
     cabal2nix
     cifs-utils
     dropbox
