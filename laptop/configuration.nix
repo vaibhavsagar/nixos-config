@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./../packages/ghcid.nix
+      ./../packages/hlint.nix
       # ./../services/dnscrypt-proxy.nix
       ./../services/redshift.nix
       ./../services/zerotierone.nix
