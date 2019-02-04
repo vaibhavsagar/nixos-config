@@ -24,6 +24,8 @@
       }
     ];
 
+    kernelModules = [ "snd-seq" "snd-rawmidi" ];
+
     loader = {
       efi.canTouchEfiVariables = true;
       grub.device = "/dev/sda";
@@ -32,7 +34,10 @@
     };
   };
 
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudio.override { jackaudioSupport = true; };
+  };
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -64,6 +69,7 @@
     gnupg
     google-chrome
     htop
+    jack2Full
     jq
     keybase
     nixops
@@ -72,6 +78,7 @@
     powertop
     psensor
     stack
+    qjackctl
     tmux
     tree
     unzip
@@ -135,7 +142,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.vaibhavsagar = {
     home = "/home/vaibhavsagar";
-    extraGroups = [ "docker" "networkmanager" "wheel" ];
+    extraGroups = [ "audio" "docker" "networkmanager" "wheel" ];
     isNormalUser = true;
     uid = 1000;
   };
