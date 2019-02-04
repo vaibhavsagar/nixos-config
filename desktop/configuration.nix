@@ -22,6 +22,7 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
+  boot.kernelModules = [ "snd-seq" "snd-rawmidi" ];
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -52,6 +53,7 @@
     gnumake
     google-chrome
     htop
+    jack2Full
     jq
     keybase
     keybase-gui
@@ -60,6 +62,7 @@
     okular
     powertop
     psensor
+    qjackctl
     spek
     thunderbird
     tmux
@@ -106,7 +109,10 @@
 
   # Enable sound.
   # sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    package = pkgs.pulseaudio.override { jackaudioSupport = true; };
+  };
 
   nix = {
     autoOptimiseStore = true;
