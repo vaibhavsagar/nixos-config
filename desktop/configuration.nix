@@ -98,9 +98,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # hardware.bumblebee.enable = true;
   hardware.nvidia.optimus_prime.enable = true;
-  # hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.optimus_prime.nvidiaBusId = "PCI:1:0:0";
   hardware.nvidia.optimus_prime.intelBusId = "PCI:0:1f:3";
 
