@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./packet.nix
+      ./deploy/nix/service.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -69,6 +70,7 @@
   # services.xserver.enable = true;
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
+  services.blank-me-up.enable = true;
 
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
