@@ -1,10 +1,9 @@
 { pkgs, ... }: let
-  obelisk = pkgs.fetchFromGitHub {
-    owner = "obsidiansystems";
-    repo = "obelisk";
-    rev = "ffce7c5f17e164f64cdae15895b30cefebbd7095";
-    sha256 = "0hyhm9s52skmm7la06l1skg5casp3q0jympkg6k55qydh8ifshvx";
+  fetcher = { owner, repo, rev, sha256, ... }: builtins.fetchTarball {
+    inherit sha256;
+    url = "https://github.com/${owner}/${repo}/tarball/${rev}";
   };
+  obelisk = (fetcher (builtins.fromJSON (builtins.readFile ./versions.json)).obelisk);
 in {
   environment.systemPackages = [
     (pkgs.callPackage obelisk {}).command
