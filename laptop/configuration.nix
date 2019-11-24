@@ -136,6 +136,7 @@
       # "128.199.234.106:jzUyrIQHov5i6f94jQVriqPDLuPYlZPAsga3W3k+L8E="
     ];
     buildCores = 2;
+    maxJobs = "auto";
     trustedUsers = [ "@wheel" ];
   };
 
