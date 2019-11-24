@@ -34,7 +34,7 @@
 
   hardware.pulseaudio = {
     enable = true;
-    package = pkgs.pulseaudio.override { jackaudioSupport = true; };
+    package = pkgs.pulseaudioFull;
   };
 
   # networking.hostName = "nixos"; # Define your hostname.
