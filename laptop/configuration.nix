@@ -8,21 +8,21 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      # ./../services/dnscrypt-proxy.nix
-      ./../services/redshift.nix
-      ./../services/zerotierone.nix
+      # ./../services/dnscrypt-proxy2.nix
+      # ./../services/redshift.nix
+      # ./../services/zerotierone.nix
+      ./../services/openvpn-keyme.nix
     ];
 
   boot = {
-    initrd.luks.devices = [
-      {
-        name = "root";
+    initrd.luks.devices = {
+      root = {
         device = "/dev/sda3";
         preLVM = true;
-      }
-    ];
+      };
+    };
 
-    kernelModules = [ "snd-seq" "snd-rawmidi" ];
+    kernelModules = [ "aesni-intel" "snd-seq" "snd-rawmidi" ];
 
     loader = {
       efi.canTouchEfiVariables = true;
@@ -30,12 +30,27 @@
       # Use the systemd-boot EFI boot loader.
       systemd-boot.enable = true;
     };
+
+    supportedFilesystems = [ "exfat" ];
   };
 
   hardware.pulseaudio = {
     enable = true;
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
     package = pkgs.pulseaudioFull;
+    support32Bit = true;
+    zeroconf = {
+      discovery.enable = true;
+      publish.enable = true;
+    };
   };
+
+  hardware.opengl = {
+    driSupport32Bit = true;
+    extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  };
+
+  hardware.bluetooth.enable = true;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -50,7 +65,8 @@
   nixpkgs.config.allowUnfree = true;
 
   # Set your time zone.
-  time.timeZone = "America/New_York";
+  # time.timeZone = "America/New_York";
+  time.timeZone = "Australia/Sydney";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -58,32 +74,47 @@
     ark
     cabal-install
     cabal2nix
-    firefox-beta-bin
+    firefox
     pkgs.haskellPackages.ghcid
     pkgs.haskellPackages.hlint
+    filelight
     gimp
     git
     git-crypt
+    gparted
     gnugrep
     gnumake
     gnupg
     google-chrome
+    haskell-language-server
+    hlint
     htop
     jack2Full
     jq
     keybase
-    nixops
+    steam
+    steam-run-native
+    # nixops
     nix-prefetch-git
+    ntfs3g
     okular
     powertop
+    parted
+    partition-manager
     psensor
-    stack
     qjackctl
+    redir
+    signal-desktop
+    spotify
     tmux
     tree
+    tuxguitar
     unzip
     vimHugeX
+    vlc
+    vscodium
     wget
+    zoom-us
   ];
 
   # List services that you want to enable:
@@ -91,7 +122,11 @@
   # Enable the OpenSSH daemon.
 
   services = {
+    avahi.enable = true;
     openssh.enable = true;
+    printing.enable = true;
+    printing.drivers = [ pkgs.gutenprint ];
+    tailscale.enable = true;
     xserver = {
       # Enable the X11 windowing system.
       enable = true;
@@ -102,13 +137,7 @@
       displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
 
-      synaptics = {
-        enable = true;
-        accelFactor = "0.01";
-        minSpeed = "0.8";
-        twoFingerScroll = true;
-        palmDetect = true;
-      };
+      libinput.enable = true;
     };
   };
 
@@ -125,7 +154,6 @@
     binaryCaches = [
       "https://cache.nixos.org"
       "https://nixcache.reflex-frp.org"
-      # "http://128.199.234.106:3000"
       "https://vaibhavsagar.cachix.org"
       "https://ihaskell.cachix.org"
     ];
@@ -133,7 +161,6 @@
       "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
       "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
       "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
-      # "128.199.234.106:jzUyrIQHov5i6f94jQVriqPDLuPYlZPAsga3W3k+L8E="
     ];
     buildCores = 2;
     maxJobs = "auto";
@@ -155,17 +182,11 @@
     uid = 1000;
   };
 
-  users.extraUsers.vaibhavsagar-work = {
-    home = "/home/vaibhavsagar-work";
-    extraGroups = [ "docker" "networkmanager" "wheel" ];
-    isNormalUser = true;
-    uid = 1001;
-  };
-
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.09";
+  system.stateVersion = "19.03";
 
   virtualisation.docker.enable = true;
+  virtualisation.lxc.enable = true;
 
   # virtualisation.virtualbox = {
   #   host.enable = true;
