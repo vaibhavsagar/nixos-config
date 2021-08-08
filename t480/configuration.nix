@@ -164,7 +164,7 @@
     unzip
     vimHugeX
     vlc
-    # vscodium
+    vscodium
     wget
     zoom-us
   ];
