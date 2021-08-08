@@ -22,6 +22,9 @@
   };
 
   boot.kernelModules = [ "aesni-intel" "snd-seq" "snd-rawmidi" ];
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+  };
 
   hardware.pulseaudio = {
     enable = true;
