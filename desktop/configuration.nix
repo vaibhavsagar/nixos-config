@@ -7,8 +7,8 @@
 {
   imports =
     [
-      ./../packages/ghcid.nix
-      ./../services/dnscrypt-proxy.nix
+      ./../packages/obelisk.nix
+      # ./../services/dnscrypt-proxy.nix
       ./../services/keybase.nix
       ./../services/redshift.nix
       ./../services/zerotierone.nix
@@ -35,38 +35,46 @@
   # };
 
   # Set your time zone.
-  time.timeZone = "Asia/Singapore";
+  time.timeZone = "America/New_York";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     ark
+    asunder
     cabal-install
     cabal2nix
+    cachix
     cifs-utils
     dropbox
     filelight
-    firefox-beta-bin
+    firefox
+    haskellPackages.ghcid
     gimp
     gitFull
     gnugrep
     gnumake
     google-chrome
+    hlint
     htop
     jack2Full
     jq
     keybase
     keybase-gui
     krename
-    nix-prefetch-git
+    nixops
+    ntfs3g
     okular
     powertop
     psensor
     qjackctl
+    reaverwps
+    signal-desktop
     spek
     thunderbird
     tmux
     tree
+    unar
     unzip
     vimHugeX
     vlc
@@ -98,9 +106,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  hardware.bluetooth.enable = true;
+
   hardware.nvidia.optimus_prime.enable = true;
   hardware.nvidia.optimus_prime.nvidiaBusId = "PCI:1:0:0";
   hardware.nvidia.optimus_prime.intelBusId = "PCI:0:1f:3";
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -118,15 +129,17 @@
       "https://cache.nixos.org"
       "https://nixcache.reflex-frp.org"
       "https://vaibhavsagar.cachix.org"
+      "https://mpickering.cachix.org"
+      "https://ihaskell.cachix.org"
     ];
     binaryCachePublicKeys = [
       "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
-      "128.199.234.106:jzUyrIQHov5i6f94jQVriqPDLuPYlZPAsga3W3k+L8E="
       "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
+      "mpickering.cachix.org-1:COxPsDJqqrggZgvKG6JeH9baHPue8/pcpYkmcBPUbeg="
+      "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
     ];
     buildCores = 4;
-    maxJobs = lib.mkForce 4;
-    trustedBinaryCaches = [ "http://128.199.234.106:3000" ];
+    maxJobs = "auto";
     trustedUsers = [ "@wheel" ];
   };
 
@@ -140,24 +153,22 @@
       enable = true;
       layout = "us";
       xkbOptions = "ctrl:nocaps";
-      videoDrivers = [ "nvidia" ];
 
       # Enable the KDE Desktop Environment.
       displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
 
-      synaptics = {
-        enable = true;
-        accelFactor = "0.01";
-        minSpeed = "0.8";
-        twoFingerScroll = true;
-        palmDetect = true;
-      };
+      libinput.enable = true;
+
+      wacom.enable = true;
+
+      # # Enable the Gnome Desktop Environment.
+      # displayManager.gdm.enable = true;
+      # displayManager.gdm.wayland = false;
+      # desktopManager.gnome3.enable = true;
+
     };
   };
-
-  # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
@@ -174,10 +185,14 @@
 
   virtualisation.docker.enable = true;
 
+  # virtualisation.virtualbox = {
+  #   host.enable = true;
+  # };
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.03"; # Did you read the comment?
+  system.stateVersion = "19.03"; # Did you read the comment?
 
 }
