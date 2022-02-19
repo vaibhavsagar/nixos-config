@@ -37,6 +37,10 @@
     };
   };
 
+  hardware.bluetooth.enable = true;
+  # For joycontrol only
+  hardware.bluetooth.disabledPlugins = [ "input" "sap" "avrcp" ];
+
   networking.hostName = "nixos-t480"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
@@ -58,11 +62,13 @@
       "https://nixcache.reflex-frp.org"
       "https://vaibhavsagar.cachix.org"
       "https://ihaskell.cachix.org"
+      "https://hydra.iohk.io"
     ];
     binaryCachePublicKeys = [
       "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
       "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
       "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     ];
     buildCores = 4;
     maxJobs = "auto";
@@ -72,6 +78,21 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.bash.enableCompletion = true;
+
+  programs.ssh = {
+    extraConfig = ''
+      Host eu.nixbuild.net
+        PubkeyAcceptedKeyTypes ssh-ed25519
+        IdentityFile /home/vaibhavsagar/.ssh/my-nixbuild-key
+    '';
+
+    knownHosts = {
+      nixbuild = {
+        hostNames = [ "eu.nixbuild.net" ];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPIQCZc54poJ8vqawd8TraNryQeJnvH1eLpIDgbiqymM";
+      };
+    };
+  };
 
   powerManagement.powertop.enable = true;
 
@@ -95,8 +116,38 @@
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.xkbOptions = "ctrl:nocaps";
   services.xserver.libinput.enable = true;
+  services.xserver.digimend.enable = true;
+  services.xserver.inputClassSections = [
+    ''
+      Identifier "XP-Pen 10 inch PenTablet"
+      MatchUSBID "28bd:0905"
+      MatchIsTablet "on"
+      MatchDevicePath "/dev/input/event*"
+      Driver "wacom"
+    ''
+    ''
+      Identifier "XP-Pen 10 inch PenTablet"
+      MatchUSBID "28bd:0905"
+      MatchIsKeyboard "on"
+      MatchDevicePath "/dev/input/event*"
+      Driver "libinput"
+    ''
+  ];
+
+  services.udev.extraHwdb = ''
+    evdev:input:b0003v28BDp0905e0100-e0*
+      KEYBOARD_KEY_d0045=0x14c
+  '';
+
   services.openssh.enable = true;
-  services.tailscale.enable = true;
+
+  services.tailscale = {
+    enable = true;
+    # package = pkgs.callPackage ../packages/tailscale.nix {};
+  };
+
+  services.fwupd.enable = true;
+  services.fstrim.enable = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
@@ -116,7 +167,7 @@
   users.users.vaibhavsagar = {
     home = "/home/vaibhavsagar";
     isNormalUser = true;
-    extraGroups = [ "audio" "docker" "networkmanager" "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "audio" "dialout" "docker" "networkmanager" "wheel" ]; # Enable ‘sudo’ for the user.
     uid = 1000;
   };
 
@@ -132,18 +183,21 @@
     filelight
     gimp
     git
+    gitAndTools.diff-so-fancy
     git-crypt
     gparted
     gnugrep
     gnumake
     gnupg
     google-chrome
-    haskell-language-server
+    # haskell-language-server
     hlint
     htop
     jack2Full
     jq
     keybase
+    krita
+    spek
     steam
     steam-run-native
     # nixops
@@ -153,6 +207,7 @@
     powertop
     parted
     partition-manager
+    plover.dev
     psensor
     qjackctl
     redir
