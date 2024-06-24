@@ -28,7 +28,7 @@
 
   hardware.pulseaudio = {
     enable = true;
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
+    # extraModules = [ pkgs.pulseaudio-modules-bt ];
     package = pkgs.pulseaudioFull;
     support32Bit = true;
     zeroconf = {
@@ -39,14 +39,26 @@
 
   hardware.bluetooth.enable = true;
   # For joycontrol only
-  hardware.bluetooth.disabledPlugins = [ "input" "sap" "avrcp" ];
+  # hardware.bluetooth.disabledPlugins = [ "input" "sap" "avrcp" ];
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = [
+      pkgs.intel-media-driver
+      pkgs.vaapiIntel
+      pkgs.vaapiVdpau
+      pkgs.libvdpau-va-gl
+    ];
+  };
 
   networking.hostName = "nixos-t480"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
+  # time.timeZone = "Europe/London";
   time.timeZone = "Australia/Sydney";
+  # time.timeZone = "Asia/Jakarta";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -54,30 +66,42 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s31f6.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
+  networking.firewall.checkReversePath = "loose";
+  # networking.firewall = {
+  #   allowedTCPPortRanges = [
+  #     { from = 1714; to = 1764; } # KDE Connect
+  #   ];
+  #   allowedUDPPortRanges = [
+  #     { from = 1714; to = 1764; } # KDE Connect
+  #   ];
+  # };
 
-  nix = {
-    autoOptimiseStore = true;
-    binaryCaches = [
-      "https://cache.nixos.org"
-      "https://nixcache.reflex-frp.org"
+  # nix.package = pkgs.nixVersions.nix_2_19;
+  nix.settings = {
+    auto-optimise-store = true;
+    substituters = [
+      # "https://nixcache.reflex-frp.org"
       "https://vaibhavsagar.cachix.org"
       "https://ihaskell.cachix.org"
-      "https://hydra.iohk.io"
     ];
-    binaryCachePublicKeys = [
-      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    trusted-public-keys = [
+      # "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
       "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
       "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     ];
-    buildCores = 4;
-    maxJobs = "auto";
-    trustedUsers = [ "@wheel" ];
+    build-cores = 4;
+    max-jobs = "auto";
+    trusted-users = [ "@wheel" ];
   };
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
   nixpkgs.config.allowUnfree = true;
 
   programs.bash.enableCompletion = true;
+  programs.kdeconnect.enable = true;
 
   programs.ssh = {
     extraConfig = ''
@@ -112,10 +136,11 @@
 
 
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.xkbOptions = "ctrl:nocaps";
-  services.xserver.libinput.enable = true;
+  services.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  services.xserver.xkb.options = "ctrl:nocaps";
+  services.libinput.enable = true;
   services.xserver.digimend.enable = true;
   services.xserver.inputClassSections = [
     ''
@@ -146,15 +171,35 @@
     # package = pkgs.callPackage ../packages/tailscale.nix {};
   };
 
+  # services.zerotierone.enable = true;
+  # services.zerotierone.joinNetworks = ["565799d8f6b954bc"];
+
   services.fwupd.enable = true;
   services.fstrim.enable = true;
+
+  services.dnscrypt-proxy2 = {
+    enable = false;
+    settings = {
+      sources.public-resolvers = {
+        urls = [ "https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md" ];
+        cache_file = "public-resolvers.md";
+        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        refresh_delay = 72;
+      };
+    };
+  };
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.brlaser ];
+  services.printing.logLevel = "debug";
+  services.avahi.enable = true;
+  services.avahi.nssmdns4 = true;
+  services.avahi.openFirewall = true;
 
   # Enable sound.
   # sound.enable = true;
@@ -175,11 +220,17 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     ark
+    atuin
+    awscli2
+    beekeeper-studio
+    blesh
     cabal-install
     cabal2nix
     firefox
     pkgs.haskellPackages.ghcid
     pkgs.haskellPackages.hlint
+    pkgs.haskellPackages.fourmolu
+    exfat
     filelight
     gimp
     git
@@ -191,15 +242,16 @@
     gnupg
     google-chrome
     # haskell-language-server
-    hlint
     htop
     jack2Full
     jq
     keybase
     krita
+    neovim
+    neovim-qt
     spek
-    steam
-    steam-run-native
+    # steam
+    # steam-run-native
     # nixops
     nix-prefetch-git
     ntfs3g
@@ -207,21 +259,31 @@
     powertop
     parted
     partition-manager
+    pgadmin4-desktopmode
     plover.dev
     psensor
     qjackctl
     redir
+    ripgrep
     signal-desktop
+    slack
     spotify
     tmux
     tree
     tuxguitar
     unzip
-    vimHugeX
+    # vimHugeX
     vlc
-    vscodium
+    # (pkgs.callPackage ../packages/vscodium.nix {})
+    # vscodium
+    vscode
     wget
+    xsel
     zoom-us
+  ];
+
+  fonts.packages = with pkgs;[
+    monaspace
   ];
 
   virtualisation.docker.enable = true;
