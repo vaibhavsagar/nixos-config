@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      ../services/uptrust-cache.nix
     ];
 
   # Bootloader.
@@ -15,6 +16,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-7b4f4406-801b-44e3-a9d3-36035ea12242".device = "/dev/disk/by-uuid/7b4f4406-801b-44e3-a9d3-36035ea12242";
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
+  };
+  boot.kernelParams = [ "nmi_watchdog=0" ];
+
   networking.hostName = "nixos-l14g3"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -24,8 +30,27 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.appendNameservers = ["100.100.100.100"];
+  # networking.search = ["tail603c.ts.net"];
+
+  hardware.bluetooth.enable = true;
+  hardware.logitech.wireless.enable = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      intel-compute-runtime
+      intel-media-driver
+      intel-media-sdk
+      libvdpau-va-gl
+      vpl-gpu-rt
+    ];
+  };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
 
   # Set your time zone.
+  # time.timeZone = "America/Chicago";
   time.timeZone = "Australia/Sydney";
 
   # Select internationalisation properties.
@@ -49,7 +74,12 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.input-remapper.enable = true;
+  services.resolved.enable = true;
+  services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "client";
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -60,22 +90,38 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.brlaser ];
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  # security.pki.certificates = [
+  #   (builtins.readFile /home/vaibhavsagar/.local/share/mkcert/rootCA.pem)
+  # ];
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  services.fwupd.enable = true;
+  services.fstrim.enable = true;
+
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "atem-udev-rules";
+      text = ''SUBSYSTEM=="usb", ATTRS{idVendor}=="1edb", ATTRS{idProduct}=="be56", TAG+="uaccess"'';
+      destination = "/etc/udev/rules.d/20-atem.rules";
+    })
+    pkgs.via
+  ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -83,27 +129,108 @@
   users.users.vaibhavsagar = {
     isNormalUser = true;
     description = "Vaibhav Sagar";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
+    extraGroups = [ "audio" "dialout" "docker" "libvirtd" "kvm" "qemu" "networkmanager" "wheel" ];
   };
+
+  users.groups.libvirtd.members = ["vaibhavsagar"];
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.bash.completion.enable = true;
+  programs.kdeconnect.enable = true;
+  programs.dconf.enable = true;
+  programs.virt-manager.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nix.settings = {
+    auto-optimise-store = true;
+    substituters = [
+      "https://ihaskell.cachix.org"
+      "https://vaibhavsagar.cachix.org"
+    ];
+    trusted-public-keys = [
+      "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
+      "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
+    ];
+    build-cores = 10;
+    max-jobs = "auto";
+    trusted-users = [ "@wheel" ];
+  };
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  vimHugeX
-  git
-  gitAndTools.diff-so-fancy
+    adwaita-icon-theme
+    kdePackages.ark
+    atuin
+    # beekeeper-studio
+    blesh
+    cabal-install
+    cabal2nix
+    elan
+    exfat
+    kdePackages.filelight
+    # haskellPackages.fourmolu
+    gimp
+    git
+    gitAndTools.diff-so-fancy
+    gnugrep
+    gnumake
+    gnupg
+    google-chrome
+    gparted
+    haskellPackages.ghcid
+    # hlint
+    htop
+    jack2
+    jq
+    kdiskmark
+    krita
+    monitorets
+    neovim
+    neovim-qt
+    nix-prefetch-git
+    ntfs3g
+    ((import /home/vaibhavsagar/repos/obelisk/default.nix {}).command)
+    obs-studio
+    kdePackages.okular
+    plover.dev
+    powertop
+    qjackctl
+    ripgrep
+    # ruff
+    signal-desktop
+    slack
+    solaar
+    sops
+    spek
+    spotify
+    tmux
+    tree
+    tuxguitar
+    unzip
+    via
+    vimHugeX
+    virt-manager
+    virt-viewer
+    spice
+    spice-gtk
+    spice-protocol
+    win-virtio
+    win-spice
+    vlc
+    vscode
+    # wineWowPackages.staging
+    # winetricks
+    wezterm
+    wl-clipboard
+    zoom-us
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -117,13 +244,32 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+
+  virtualisation.docker.enable = true;
+  virtualisation.lxc.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      swtpm.enable = true;
+      ovmf.enable = true;
+      ovmf.packages = [ pkgs.OVMFFull.fd ];
+    };
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
+  services.spice-vdagentd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall = {
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedTCPPorts = [ 22 ];
+    checkReversePath = "loose";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
