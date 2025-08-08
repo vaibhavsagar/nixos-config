@@ -18,6 +18,25 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "nct6775" ];
 
+  hardware.display.edid.packages = [
+    (pkgs.runCommand "edid-custom" {} ''
+      mkdir -p $out/lib/firmware/edid
+      base64 -d > "$out/lib/firmware/edid/tcl-beyond-tv.bin" <<'EOF'
+      AP///////wBQbFOWAAABABQhAQOAeUR4CmE1rFBEoyUPUFQhCACBQKlAgYCBwKnAAQEBAQEBCOgA
+      MPJwWoCwWIoAuahCAAAeb8IAoKCgVVAwIDUAVlAhAAAeAAAA/ABCZXlvbmQgVFYKICAgAAAA/QAY
+      kB+MPAAKICAgICAgA9rwAnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAngIDevBQYWBmZXZfXl0/ECIfIAUUBDgPBwcVB1BX
+      BwFnBAc9B8BffgdffgE1ByjiAMtuAwwAEAC4RCEAgAECAwRq2F3EAXiAbwIw8OMF4wHiDx/jBg8B
+      gwEAAOUBi4SQAesBRtAATRp+ikZlhW0aAAACATDwAABgQFpEAAAAAABmcBJ5AAADATw8/gGE/w5P
+      AAeAHwBvCJkAiwAHADeLAAR/BxcBV4ArADcELAADAAQAB+gABH8HFwFXgCsANwQsAAMABAAAAAAA
+      AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/ZA=
+      EOF
+    '')
+  ];
+  hardware.display.outputs."HDMI-A-2".edid = "tcl-beyond-tv.bin";
+  hardware.display.outputs."HDMI-A-2".mode = "D";
+
   boot.initrd.luks.devices."luks-c14ca3aa-53c8-4069-921c-3c61d66483f6".device = "/dev/disk/by-uuid/c14ca3aa-53c8-4069-921c-3c61d66483f6";
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -103,17 +122,18 @@
   hardware.graphics.enable32Bit = true;
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
+    nvidiaPersistenced = true;
+    powerManagement.enable = false;
     powerManagement.finegrained = false;
     open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "575.64.03";
-      sha256_64bit = "sha256-S7eqhgBLLtKZx9QwoGIsXJAyfOOspPbppTHUxB06DKA=";
+      version = "570.181";
+      sha256_64bit = "sha256-8G0lzj8YAupQetpLXcRrPCyLOFA9tvaPPvAWurjj3Pk=";
       sha256_aarch64 = "";
-      openSha256 = "sha256-SAl1+XH4ghz8iix95hcuJ/EVqt6ylyzFAao0mLeMmMI=";
-      settingsSha256 = "sha256-o8rPAi/tohvHXcBV+ZwiApEQoq+ZLhCMyHzMxIADauI=";
-      persistencedSha256 = "";
+      openSha256 = "sha256-U/uqAhf83W/mns/7b2cU26B7JRMoBfQ3V6HiYEI5J48=";
+      settingsSha256 = "sha256-iBx/X3c+1NSNmG+11xvGyvxYSMbVprijpzySFeQVBzs=";
+      persistencedSha256 = "sha256-RoAcutBf5dTKdAfkxDPtMsktFVQt5uPIPtkAkboQwcQ=";
     };
   };
 
