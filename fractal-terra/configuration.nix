@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -251,6 +251,7 @@
   services.fstrim.enable = true;
   services.tailscale.enable = true;
   services.tailscale.useRoutingFeatures = "both";
+  services.speechd.enable = lib.mkForce false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
