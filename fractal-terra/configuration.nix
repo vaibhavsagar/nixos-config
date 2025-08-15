@@ -218,6 +218,7 @@
   environment.systemPackages = with pkgs; [
     git
     gitAndTools.diff-so-fancy
+    gparted
     htop
     lm_sensors
     mangohud
