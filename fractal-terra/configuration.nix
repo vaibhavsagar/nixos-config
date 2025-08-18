@@ -194,6 +194,7 @@
 
   nix.settings = {
     auto-optimise-store = true;
+    experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       "https://ihaskell.cachix.org"
       "https://ghc-nix.cachix.org"
@@ -208,10 +209,6 @@
     max-jobs = "auto";
     trusted-users = [ "@wheel" "remotebuild" ];
   };
-
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
