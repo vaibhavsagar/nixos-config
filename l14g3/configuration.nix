@@ -136,6 +136,7 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  programs.bash.blesh.enable = true;
   programs.bash.completion.enable = true;
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true;
