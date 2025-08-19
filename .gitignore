@@ -1,1 +1,2 @@
 services/uptrust-cache.nix
+**/result*
