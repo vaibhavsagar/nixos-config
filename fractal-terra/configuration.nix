@@ -179,6 +179,9 @@
     capSysNice = true;
   };
 
+  programs.bash.blesh.enable = true;
+  programs.bash.completion.enable = true;
+
   programs.java.enable = true;
 
   programs.steam = {
@@ -213,6 +216,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    atuin
     git
     gitAndTools.diff-so-fancy
     gparted
