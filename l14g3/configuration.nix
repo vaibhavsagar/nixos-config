@@ -2,12 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, obelisk, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
       ../services/uptrust-cache.nix
     ];
 
@@ -211,7 +211,7 @@
     neovim-qt
     nix-prefetch-git
     ntfs3g
-    ((import /home/vaibhavsagar/repos/obelisk/default.nix {}).command)
+    (import obelisk { system = "x86_64-linux"; }).command
     obs-studio
     kdePackages.okular
     plover.dev
