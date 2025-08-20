@@ -2,12 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, agenix, copyparty, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      agenix.nixosModules.default
+      copyparty.nixosModules.default
     ];
 
   # Bootloader.
@@ -216,6 +218,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    agenix.packages.x86_64-linux.default
     atuin
     git
     gitAndTools.diff-so-fancy
@@ -226,6 +229,7 @@
     monitorets
     neovim
     neovim-qt
+    powertop
     solaar
     vimHugeX
     wezterm
