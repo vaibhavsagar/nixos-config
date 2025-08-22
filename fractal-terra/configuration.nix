@@ -196,6 +196,9 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    copyparty.overlays.default
+  ];
 
   nix.settings = {
     auto-optimise-store = true;
@@ -220,6 +223,7 @@
   environment.systemPackages = with pkgs; [
     agenix.packages.x86_64-linux.default
     atuin
+    copyparty
     git
     gitAndTools.diff-so-fancy
     gparted
