@@ -210,6 +210,7 @@
     neovim
     neovim-qt
     nix-prefetch-git
+    nix-output-monitor
     ntfs3g
     (import obelisk { system = "x86_64-linux"; }).command
     obs-studio
