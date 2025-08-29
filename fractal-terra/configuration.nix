@@ -233,6 +233,7 @@
     monitorets
     neovim
     neovim-qt
+    nix-output-monitor
     powertop
     solaar
     vimHugeX
