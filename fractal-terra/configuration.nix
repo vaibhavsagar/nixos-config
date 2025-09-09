@@ -34,6 +34,18 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "nct6775" ];
+  boot.kernelPatches = [
+    # Fix the /proc/net/tcp seek issue
+    # Impacts tailscale: https://github.com/tailscale/tailscale/issues/16966
+    {
+      name = "proc: fix missing pde_set_flags() for net proc files";
+      patch = pkgs.fetchurl {
+        name = "fix-missing-pde_set_flags-for-net-proc-files.patch";
+        url = "https://patchwork.kernel.org/project/linux-fsdevel/patch/20250821105806.1453833-1-wangzijie1@honor.com/raw/";
+        hash = "sha256-DbQ8FiRj65B28zP0xxg6LvW5ocEH8AHOqaRbYZOTDXg=";
+      };
+    }
+  ];
 
   # hardware.display.edid.packages = [
   #   (pkgs.runCommand "edid-custom" {} ''
@@ -144,12 +156,12 @@
     open = true;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "580.76.05";
-      sha256_64bit = "sha256-IZvmNrYJMbAhsujB4O/4hzY8cx+KlAyqh7zAVNBdl/0=";
+      version = "580.82.07";
+      sha256_64bit = "sha256-Bh5I4R/lUiMglYEdCxzqm3GLolQNYFB0/yJ/zgYoeYw=";
       sha256_aarch64 = lib.fakeHash;
-      openSha256 = "sha256-xEPJ9nskN1kISnSbfBigVaO6Mw03wyHebqQOQmUg/eQ=";
-      settingsSha256 = "sha256-ll7HD7dVPHKUyp5+zvLeNqAb6hCpxfwuSyi+SAXapoQ=";
-      persistencedSha256 = "sha256-bs3bUi8LgBu05uTzpn2ugcNYgR5rzWEPaTlgm0TIpHY=";
+      openSha256 = "sha256-8/7ZrcwBMgrBtxebYtCcH5A51u3lAxXTCY00LElZz08=";
+      settingsSha256 = "sha256-lx1WZHsW7eKFXvi03dAML6BoC5glEn63Tuiz3T867nY=";
+      persistencedSha256 = "sha256-1JCk2T3H5NNFQum0gA9cnio31jc0pGvfGIn2KkAz9kA=";
     };
 
   };
