@@ -14,7 +14,7 @@
   };
 
   outputs = { self, nixpkgs, agenix, copyparty, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos-terra = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;
       modules = [

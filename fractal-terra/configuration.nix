@@ -54,7 +54,7 @@
   # hardware.display.outputs."HDMI-A-2".edid = "tcl-beyond-tv.bin";
   # hardware.display.outputs."HDMI-A-2".mode = "D";
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-terra"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
