@@ -221,10 +221,11 @@
     build-cores = 8;
     max-jobs = "auto";
     trusted-users = [ "@wheel" "remotebuild" ];
-    extraOptions = ''
-      !include ${config.age.secrets.github-access-token.path}
-    '';
   };
+
+  nix.extraOptions = ''
+    !include ${config.age.secrets.github-access-token.path}
+  '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
