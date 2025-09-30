@@ -2,14 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, obelisk, ... }:
+{ config, pkgs, agenix, obelisk, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../services/uptrust-cache.nix
+      agenix.nixosModules.default
     ];
+
+  # Age
+  age.secrets = {
+    github-access-token.file = ../secrets/github-access-token.age;
+    uptrust-cache-ip-address.file = ../secrets/uptrust-cache-ip-address.age;
+    uptrust-cache-ed25519-public-key.file = ../secrets/uptrust-cache-ed25519-public-key.age;
+    uptrust-cache-rsa-public-key.file = ../secrets/uptrust-cache-rsa-public-key.age;
+    uptrust-cache-trusted-public-key.file = ../secrets/uptrust-cache-trusted-public-key.age;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -175,12 +185,14 @@
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
+    !include ${config.age.secrets.github-access-token.path}
   '';
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    agenix.packages.x86_64-linux.default
     kdePackages.ark
     atuin
     # beekeeper-studio
