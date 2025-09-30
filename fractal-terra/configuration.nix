@@ -12,6 +12,11 @@
       copyparty.nixosModules.default
     ];
 
+  # Age
+  age.secrets = {
+    github-access-token.file = ../secrets/github-access-token.age;
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -216,6 +221,9 @@
     build-cores = 8;
     max-jobs = "auto";
     trusted-users = [ "@wheel" "remotebuild" ];
+    extraOptions = ''
+      !include ${config.age.secrets.github-access-token.path}
+    '';
   };
 
   # List packages installed in system profile. To search, run:
