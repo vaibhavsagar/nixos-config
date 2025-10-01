@@ -13,12 +13,12 @@
     knownHosts = {
       uptrust-nix-cache-ed25519 = {
         hostNames = [ ipAddress ];
-        publicKey = builtins.readFile config.age.secrets.uptrust-cache-ed25519-public-key.path;
+        publicKeyFile = config.age.secrets.uptrust-cache-ed25519-public-key.path;
       };
 
       uptrust-nix-cache-rsa = {
         hostNames = [ ipAddress ];
-        publicKey = builtins.readFile config.age.secrets.uptrust-cache-rsa-public-key.path;
+        publicKeyFile = config.age.secrets.uptrust-cache-rsa-public-key.path;
       };
     };
   };
