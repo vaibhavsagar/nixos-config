@@ -16,7 +16,7 @@
     obelisk.flake = false;
   };
 
-  outputs = { self, nixpkgs, agenix, copyparty, ... }@inputs: {
+  outputs = { self, nixpkgs, agenix, copyparty, obelisk, ... }@inputs: {
     nixosConfigurations.nixos-l14g3 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;

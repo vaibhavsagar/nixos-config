@@ -199,6 +199,7 @@
     blesh
     cabal-install
     cabal2nix
+    dosfstools
     elan
     exfat
     kdePackages.filelight
