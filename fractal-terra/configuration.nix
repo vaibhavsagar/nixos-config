@@ -19,6 +19,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.memtest86.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.kernelModules = [ "usb_storage" ];
@@ -233,13 +234,14 @@
     agenix.packages.x86_64-linux.default
     atuin
     copyparty
+    kdePackages.filelight
     git
     gitAndTools.diff-so-fancy
     gparted
     htop
+    killall
     lm_sensors
     mangohud
-    monitorets
     neovim
     neovim-qt
     nix-output-monitor
