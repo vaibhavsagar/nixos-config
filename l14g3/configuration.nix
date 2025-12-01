@@ -170,10 +170,12 @@
   nix.settings = {
     auto-optimise-store = true;
     substituters = [
-      "https://ihaskell.cachix.org"
-      "https://vaibhavsagar.cachix.org"
+      "https://cache.nixos.org?priority=1"
+      "https://vaibhavsagar.cachix.org?priority=2"
+      "https://ihaskell.cachix.org?priority=3"
     ];
     trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
       "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
     ];
