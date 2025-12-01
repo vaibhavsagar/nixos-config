@@ -236,7 +236,7 @@
     copyparty
     kdePackages.filelight
     git
-    gitAndTools.diff-so-fancy
+    diff-so-fancy
     gparted
     htop
     killall
@@ -247,7 +247,7 @@
     nix-output-monitor
     powertop
     solaar
-    vimHugeX
+    vim-full
     wezterm
     wget
   ];
