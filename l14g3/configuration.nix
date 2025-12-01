@@ -52,7 +52,6 @@
     extraPackages = with pkgs; [
       intel-compute-runtime
       intel-media-driver
-      intel-media-sdk
       libvdpau-va-gl
       vpl-gpu-rt
     ];
@@ -206,7 +205,7 @@
     # haskellPackages.fourmolu
     gimp
     git
-    gitAndTools.diff-so-fancy
+    diff-so-fancy
     gnugrep
     gnumake
     gnupg
@@ -241,16 +240,16 @@
     spotify
     tmux
     tree
-    tuxguitar
+    # tuxguitar
     unzip
     via
-    vimHugeX
+    vim-full
     virt-manager
     virt-viewer
     spice
     spice-gtk
     spice-protocol
-    win-virtio
+    virtio-win
     win-spice
     vlc
     vscode
@@ -280,8 +279,6 @@
     enable = true;
     qemu = {
       swtpm.enable = true;
-      ovmf.enable = true;
-      ovmf.packages = [ pkgs.OVMFFull.fd ];
     };
   };
   virtualisation.spiceUSBRedirection.enable = true;

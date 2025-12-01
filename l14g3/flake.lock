@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762095388,
-        "narHash": "sha256-7Q8LtcvKWHbP8znARRTOY2tpU5WoV6FHwp5TZJOI8Us=",
+        "lastModified": 1764540866,
+        "narHash": "sha256-e/ybbGD7vhWd96VSnBkeY1IqyY9INEWu3V8cWlLiVGI=",
         "owner": "9001",
         "repo": "copyparty",
-        "rev": "ac085b8149ff50e03d260128596dd130ed1c7cae",
+        "rev": "dba7c5d4d5ead25447bdb610ac9aea8291ced415",
         "type": "github"
       },
       "original": {
@@ -82,16 +82,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1763049705,
-        "narHash": "sha256-A5LS0AJZ1yDPTa2fHxufZN++n8MCmtgrJDtxFxrH4S8=",
+        "lastModified": 1764494334,
+        "narHash": "sha256-x2xCEXUlU4Ap56+t5HaoReOQ/bV/bIQ5rzTn/m+V3HQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3acb677ea67d4c6218f33de0db0955f116b7588c",
+        "rev": "d542db745310b6929708d9abea513f3ff19b1341",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -99,11 +99,11 @@
     "obelisk": {
       "flake": false,
       "locked": {
-        "lastModified": 1762999872,
-        "narHash": "sha256-ErVHAEahbh/+QLxDViMNPUTw8VHmJL9buPJkUseKCZU=",
+        "lastModified": 1764510591,
+        "narHash": "sha256-3tb5GDYYh0aQa8LA7c/tvQaoL1I5AdxaVZnSBH5gJmw=",
         "owner": "obsidiansystems",
         "repo": "obelisk",
-        "rev": "4393b070920b67e12ead9f77abb973f9b5b5e813",
+        "rev": "c0767818c990f081796cfb4017c5931d75fa4803",
         "type": "github"
       },
       "original": {
