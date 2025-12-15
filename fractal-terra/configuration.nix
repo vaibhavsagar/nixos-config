@@ -41,8 +41,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "nct6775" ];
 
-  # Disable low power C-states to work around random hanging
-  boot.kernelParams = [ "idle=nomwait" "processor.max_cstate=5" ];
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   # hardware.display.edid.packages = [
   #   (pkgs.runCommand "edid-custom" {} ''
