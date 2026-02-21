@@ -117,7 +117,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -137,6 +137,8 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+
+  # services.hardware.openrgb.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -247,6 +249,7 @@
     neovim
     neovim-qt
     nix-output-monitor
+    # openrgb
     powertop
     solaar
     vim-full
