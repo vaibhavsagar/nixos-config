@@ -238,6 +238,7 @@
     agenix.packages.x86_64-linux.default
     atuin
     copyparty
+    dust
     kdePackages.filelight
     git
     diff-so-fancy
