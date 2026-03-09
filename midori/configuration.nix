@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -60,6 +60,28 @@
     layout = "us";
     variant = "";
     options = "ctrl:nocaps";
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaPersistenced = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "580.126.18";
+      sha256_64bit = "sha256-p3gbLhwtZcZYCRTHbnntRU0ClF34RxHAMwcKCSqatJ0=";
+      sha256_aarch64 = lib.fakeHash;
+      openSha256 = "sha256-1Q2wuDdZ6KiA/2L3IDN4WXF8t63V/4+JfrFeADI1Cjg=";
+      settingsSha256 = "sha256-QMx4rUPEGp/8Mc+Bd8UmIet/Qr0GY8bnT/oDN8GAoEI=";
+      persistencedSha256 = "sha256-ZBfPZyQKW9SkVdJ5cy0cxGap2oc7kyYRDOeM0XyfHfI=";
+    };
+
   };
 
   # Enable CUPS to print documents.
