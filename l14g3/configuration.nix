@@ -2,23 +2,72 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, agenix, obelisk, ... }:
+{ config, pkgs, lib, agenix, obelisk, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../services/uptrust-cache.nix
+      # ../services/uptrust-cache.nix
       agenix.nixosModules.default
     ];
+
+  # nixpkgs.overlays = lib.singleton (final: prev: {
+  #   kdePackages = prev.kdePackages // {
+  #     plasma-workspace = let
+
+  #       # the package we want to override
+  #       basePkg = prev.kdePackages.plasma-workspace;
+
+  #       # a helper package that merges all the XDG_DATA_DIRS into a single directory
+  #       xdgdataPkg = pkgs.stdenv.mkDerivation {
+  #         name = "${basePkg.name}-xdgdata";
+  #         buildInputs = [ basePkg ];
+  #         dontUnpack = true;
+  #         dontFixup = true;
+  #         dontWrapQtApps = true;
+  #         installPhase = ''
+  #           mkdir -p $out/share
+  #           ( IFS=:
+  #             for DIR in $XDG_DATA_DIRS; do
+  #               if [[ -d "$DIR" ]]; then
+  #                 cp -r $DIR/. $out/share/
+  #                 chmod -R u+w $out/share
+  #               fi
+  #             done
+  #           )
+  #         '';
+  #       };
+
+  #       # undo the XDG_DATA_DIRS injection that is usually done in the qt wrapper
+  #       # script and instead inject the path of the above helper package
+  #       derivedPkg = basePkg.overrideAttrs {
+  #         preFixup = ''
+  #           for index in "''${!qtWrapperArgs[@]}"; do
+  #             if [[ ''${qtWrapperArgs[$((index+0))]} == "--prefix" ]] && [[ ''${qtWrapperArgs[$((index+1))]} == "XDG_DATA_DIRS" ]]; then
+  #               unset -v "qtWrapperArgs[$((index+0))]"
+  #               unset -v "qtWrapperArgs[$((index+1))]"
+  #               unset -v "qtWrapperArgs[$((index+2))]"
+  #               unset -v "qtWrapperArgs[$((index+3))]"
+  #             fi
+  #           done
+  #           qtWrapperArgs=("''${qtWrapperArgs[@]}")
+  #           qtWrapperArgs+=(--prefix XDG_DATA_DIRS : "${xdgdataPkg}/share")
+  #           qtWrapperArgs+=(--prefix XDG_DATA_DIRS : "$out/share")
+  #         '';
+  #       };
+
+  #     in derivedPkg;
+  #   };
+  # });
 
   # Age
   age.secrets = {
     github-access-token.file = ../secrets/github-access-token.age;
-    uptrust-cache-ip-address.file = ../secrets/uptrust-cache-ip-address.age;
-    uptrust-cache-ed25519-public-key.file = ../secrets/uptrust-cache-ed25519-public-key.age;
-    uptrust-cache-rsa-public-key.file = ../secrets/uptrust-cache-rsa-public-key.age;
-    uptrust-cache-trusted-public-key.file = ../secrets/uptrust-cache-trusted-public-key.age;
+    # uptrust-cache-ip-address.file = ../secrets/uptrust-cache-ip-address.age;
+    # uptrust-cache-ed25519-public-key.file = ../secrets/uptrust-cache-ed25519-public-key.age;
+    # uptrust-cache-rsa-public-key.file = ../secrets/uptrust-cache-rsa-public-key.age;
+    # uptrust-cache-trusted-public-key.file = ../secrets/uptrust-cache-trusted-public-key.age;
   };
 
   # Bootloader.
@@ -85,7 +134,7 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
-  services.input-remapper.enable = true;
+  # services.input-remapper.enable = true;
   services.resolved.enable = true;
   services.tailscale.enable = true;
   services.tailscale.useRoutingFeatures = "client";
@@ -99,7 +148,13 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.brlaser ];
+  services.printing.drivers = with pkgs; [ cups-filters cups-browsed brlaser ];
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -147,6 +202,8 @@
   programs.firefox.enable = true;
   programs.bash.blesh.enable = true;
   programs.bash.completion.enable = true;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
   programs.kdeconnect.enable = true;
   programs.dconf.enable = true;
   programs.virt-manager.enable = true;
@@ -219,6 +276,7 @@
     jack2
     jq
     kdiskmark
+    killall
     krita
     monitorets
     neovim
@@ -226,7 +284,7 @@
     nix-prefetch-git
     nix-output-monitor
     ntfs3g
-    (import obelisk { system = "x86_64-linux"; }).command
+    # (import obelisk { system = "x86_64-linux"; }).command
     obs-studio
     kdePackages.okular
     plover.dev
@@ -237,12 +295,13 @@
     signal-desktop
     slack
     solaar
-    sops
+    # sops
     spek
     spotify
     tmux
     tree
     # tuxguitar
+    unrar
     unzip
     via
     vim-full
@@ -254,7 +313,6 @@
     virtio-win
     win-spice
     vlc
-    vscode
     # wineWowPackages.staging
     # winetricks
     wezterm

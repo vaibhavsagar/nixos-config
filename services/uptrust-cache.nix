@@ -23,11 +23,11 @@
     };
   };
   nix.settings.substituters = [
-    "https://nixcache.reflex-frp.org"
+    # "https://nixcache.reflex-frp.org"
     "ssh://uptrust-nix-cache"
   ];
   nix.settings.trusted-public-keys = [
-    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    # "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     (builtins.readFile config.age.secrets.uptrust-cache-trusted-public-key.path)
   ];
 }
