@@ -195,13 +195,11 @@
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       "https://ihaskell.cachix.org"
-      "https://ghc-nix.cachix.org"
       "https://vaibhavsagar.cachix.org"
     ];
     trusted-public-keys = [
       "ihaskell.cachix.org-1:WoIvex/Ft/++sjYW3ntqPUL3jDGXIKDpX60pC8d5VLM="
       "vaibhavsagar.cachix.org-1:PxFckJ8oAzgF4sdFJ855Fw38yCVbXmzJ98Cc6dGzcE0="
-      "ghc-nix.cachix.org-1:ziC/I4BPqeA4VbtOFpFpu6D1t6ymFvRWke/lc2+qjcg="
     ];
     build-cores = 8;
     max-jobs = "auto";
