@@ -12,11 +12,11 @@
     # NixOS official package source, using the nixos-25.11 branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-    obelisk.url = "github:obsidiansystems/obelisk/develop";
-    obelisk.flake = false;
+    # obelisk.url = "github:obsidiansystems/obelisk/develop";
+    # obelisk.flake = false;
   };
 
-  outputs = { self, nixpkgs, agenix, copyparty, obelisk, ... }@inputs: {
+  outputs = { self, nixpkgs, agenix, copyparty, ... }@inputs: {
     nixosConfigurations.nixos-l14g3 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;
