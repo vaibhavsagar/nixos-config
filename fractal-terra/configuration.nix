@@ -11,6 +11,7 @@
       agenix.nixosModules.default
       copyparty.nixosModules.default
       ../modules/nvidia.nix
+      ../modules/steam.nix
     ];
 
   # Age
@@ -160,30 +161,11 @@
 
   users.groups.remotebuild = {};
 
-  programs.appimage.enable = true;
-  programs.appimage.binfmt = true;
-
   # Install firefox.
   programs.firefox.enable = true;
 
-  programs.gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
-
   programs.bash.blesh.enable = true;
   programs.bash.completion.enable = true;
-
-  programs.java.enable = true;
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    gamescopeSession.enable = true;
-    localNetworkGameTransfers.openFirewall = true;
-    extraPackages = [ pkgs.hidapi ];
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
