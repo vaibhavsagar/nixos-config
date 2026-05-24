@@ -142,7 +142,6 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   hardware.logitech.wireless.enable = true;
-  hardware.steam-hardware.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.vaibhavsagar = {
@@ -183,6 +182,7 @@
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
     localNetworkGameTransfers.openFirewall = true;
+    extraPackages = [ pkgs.hidapi ];
   };
 
   # Allow unfree packages
