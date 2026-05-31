@@ -287,7 +287,7 @@
     # (import obelisk { system = "x86_64-linux"; }).command
     obs-studio
     kdePackages.okular
-    plover.dev
+    plover
     powertop
     qjackctl
     ripgrep
