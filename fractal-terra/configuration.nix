@@ -29,14 +29,12 @@
     allowDiscards = true;
     keyFileSize = 4096;
     keyFile = "/dev/disk/by-id/usb-USB_SanDisk_3.2Gen1_05014f5388945b9a8a990577db706ffc06ba4245a2a336cec1991bcb834bb37622b600000000000000000000a04e5978009a101083558107212b3bb5-0:0";
-    fallbackToPassword = true;
   };
   boot.initrd.luks.devices."luks-c14ca3aa-53c8-4069-921c-3c61d66483f6" = {
     device = "/dev/disk/by-uuid/c14ca3aa-53c8-4069-921c-3c61d66483f6";
     allowDiscards = true;
     keyFileSize = 4096;
     keyFile = "/dev/disk/by-id/usb-USB_SanDisk_3.2Gen1_05014f5388945b9a8a990577db706ffc06ba4245a2a336cec1991bcb834bb37622b600000000000000000000a04e5978009a101083558107212b3bb5-0:0";
-    fallbackToPassword = true;
   };
 
   # Use latest kernel.
