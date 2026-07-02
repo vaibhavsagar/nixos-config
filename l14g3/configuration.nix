@@ -10,7 +10,6 @@
       ./hardware-configuration.nix
       # ../services/uptrust-cache.nix
       agenix.nixosModules.default
-      microvm.nixosModules.microvm
       microvm.nixosModules.host
     ];
 
