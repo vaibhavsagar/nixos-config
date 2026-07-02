@@ -81,6 +81,7 @@
     "vm.swappiness" = 10;
   };
   boot.kernelParams = [ "nmi_watchdog=0" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos-l14g3"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -212,6 +213,9 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.29.2"
+  ];
 
   nix.distributedBuilds = true;
   nix.settings.builders-use-substitutes = true;
