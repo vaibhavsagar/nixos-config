@@ -9,6 +9,9 @@
     copyparty.url = "github:9001/copyparty";
     copyparty.inputs.nixpkgs.follows = "nixpkgs";
 
+    microvm.url = "github:microvm-nix/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "nixpkgs";
+
     # NixOS official package source, using the nixos-26.05 branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
@@ -16,7 +19,7 @@
     # obelisk.flake = false;
   };
 
-  outputs = { self, nixpkgs, agenix, copyparty, ... }@inputs: {
+  outputs = { self, nixpkgs, agenix, copyparty, microvm, ... }@inputs: {
     nixosConfigurations.nixos-l14g3 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = inputs;

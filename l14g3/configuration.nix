@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, agenix, ... }:
+{ config, pkgs, lib, agenix, microvm, ... }:
 
 {
   imports =
@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
       # ../services/uptrust-cache.nix
       agenix.nixosModules.default
+      microvm.nixosModules.microvm
+      microvm.nixosModules.host
     ];
 
   # nixpkgs.overlays = lib.singleton (final: prev: {
