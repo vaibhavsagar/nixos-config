@@ -161,9 +161,6 @@
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  # security.pki.certificates = [
-  #   (builtins.readFile /home/vaibhavsagar/.local/share/mkcert/rootCA.pem)
-  # ];
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -187,6 +184,11 @@
       destination = "/etc/udev/rules.d/20-atem.rules";
     })
     pkgs.via
+  ];
+
+  security.pam.loginLimits = [
+    { domain = "@audio"; type = "-"; item = "rtprio"; value = "95"; }
+    # { domain = "@audio"; type = "-"; item = "memlock"; value = "524288"; } # optional
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -300,6 +302,7 @@
     # sops
     spek
     spotify
+    supercollider-with-sc3-plugins
     tmux
     tree
     # tuxguitar
