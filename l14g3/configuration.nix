@@ -73,6 +73,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 8;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-7b4f4406-801b-44e3-a9d3-36035ea12242".device = "/dev/disk/by-uuid/7b4f4406-801b-44e3-a9d3-36035ea12242";
@@ -255,6 +256,7 @@
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     agenix.packages.x86_64-linux.default
+    config.boot.kernelPackages.turbostat
     kdePackages.ark
     atuin
     # beekeeper-studio
@@ -340,6 +342,8 @@
 
   virtualisation.docker.enable = true;
   virtualisation.lxc.enable = true;
+  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.package = pkgs.waydroid-nftables;
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
