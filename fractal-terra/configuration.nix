@@ -165,6 +165,8 @@
   programs.bash.blesh.enable = true;
   programs.bash.completion.enable = true;
 
+  programs.kdeconnect.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
